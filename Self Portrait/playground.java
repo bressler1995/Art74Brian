@@ -1,4 +1,3 @@
-boolean flag;
 int canvw = 1000, canvh = 1000;
 
 int[][] haircords = new int[302][2];
