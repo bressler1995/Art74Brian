@@ -63,6 +63,10 @@ int avatar_w = 82;
 int avatar_h = 200;
 int a_speed = 20;
 PImage avatar_still;
+int move_num = 28;
+PImage[] avatar_move = new PImage[28];
+int move_state = 8;
+int leftover_direction = 3;
 PImage space_icon;
 
 //conversation variables
@@ -87,6 +91,10 @@ void setup() {
   toaster1 = loadImage("assets/toaster.png");
   avatar_still = loadImage("assets/avatar_still.png");
   space_icon = loadImage("assets/space_icon.png");
+  
+  for(int i =0;i < move_num;i++) {
+    avatar_move[i] = loadImage("assets/avatar_" + (i + 1) + ".png");
+  }
   
   bg_music = new SoundFile(this, "b_music.mp3");
   start_sound = new SoundFile(this, "start.mp3");
@@ -196,7 +204,8 @@ void draw() {
     tint(255, fader_3);
     image(toaster1, toast_x, toast_y, toast_w, toast_h);
     tint(255, fader_3);
-    image(avatar_still, avatar_x, avatar_y, avatar_w, avatar_h);
+    
+    move_execute();
     
     tint(255, 255);
     
@@ -231,27 +240,54 @@ void keyPressed() {
    if (key == CODED) {
      if(game_state == 3) {
       if(keyCode == LEFT && text_response == false) {
+        leftover_direction = 0;
         
         if(hit_wall(0) == false && boundaries(0) == false) {
           avatar_x -= a_speed; 
+          if(move_state < 3) {
+            move_state += 1;
+          } else {
+            move_state = 0;
+          }
         }
         
       } else if(keyCode == RIGHT && text_response == false) {
         
+        leftover_direction = 1;
+        
         if(hit_wall(1) == false && boundaries(1) == false) {
           avatar_x += a_speed; 
+          if(move_state < 7) {
+            move_state += 1;
+          } else {
+            move_state = 4;
+          }
         }
         
       } else if(keyCode == UP && text_response == false) {
+        leftover_direction = 2;
         
         if(hit_wall(2) == false && boundaries(2) == false) {
-          avatar_y -= a_speed; 
+          avatar_y -= a_speed;
+          if(move_state < 17) {
+            move_state += 1;
+          } else {
+            move_state = 8;
+          }
         }
         
+        
+        
       } else if(keyCode == DOWN && text_response == false) {
+        leftover_direction = 3;
         
         if(hit_wall(3) == false && boundaries(3) == false) {
-          avatar_y += a_speed; 
+          avatar_y += a_speed;
+          if(move_state < 27) {
+            move_state += 1;
+          } else {
+            move_state = 18;
+          }
         }
         
       }
@@ -375,6 +411,21 @@ void conversation() {
       text_response = false;
     }
    
+  }
+  
+}
+
+void move_execute() {
+  if(leftover_direction == 0) {
+    image(avatar_move[move_state], avatar_x, avatar_y, avatar_w, avatar_h);
+  } else if(leftover_direction == 1) {
+    image(avatar_move[move_state], avatar_x, avatar_y, avatar_w, avatar_h);
+  } else if(leftover_direction == 2) {
+    image(avatar_move[move_state], avatar_x, avatar_y, avatar_w, avatar_h);
+  } else if(leftover_direction == 3) {
+    image(avatar_move[move_state], avatar_x, avatar_y, avatar_w, avatar_h);
+  } else {
+    image(avatar_still, avatar_x, avatar_y, avatar_w, avatar_h);
   }
   
 }
