@@ -1,4 +1,3 @@
-//probably could store all that stuff below in a text file but I didn't want to get too illusive
 int canvw = 1000, canvh = 1000;
 
 int[][] haircords = new int[302][2];
