@@ -77,6 +77,8 @@ int conversation_id = -1;
 
 void setup() {
   //initializer
+  //PImage titlebaricon = loadImage("assets/myicon.png");
+  //surface.setIcon(titlebaricon);
   size(1000, 600);
   surface.setLocation(displayWidth / 2 - (winWidth / 2), displayHeight / 2 - (winHeight / 2));
   surface.setTitle("Life The Game"); 
